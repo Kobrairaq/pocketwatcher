@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "launch": "fly launch --copy-config --yes",
+    "launch": "fly launch --copy-config --now",
     "start": "next start",
     "lint": "next lint"
   },

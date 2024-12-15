@@ -1,27 +1,26 @@
 # PocketWatcher
 
-A modern, full-stack financial tracking application built with Next.js and PocketBase, featuring a beautiful UI and robust authentication system.
+A modern, full-stack application template built with Next.js, PocketBase, and shadcn/ui, providing a solid foundation for building web applications with authentication and beautiful UI components.
 
 ## Features
 
-- 🚀 Next.js 14+ App Router for the frontend
-- 📦 PocketBase as a simple yet powerful backend
-- 🔐 Complete authentication system with email/password
-- 🎨 Beautiful UI with Tailwind CSS
+- 🚀 Next.js 15+ App Router
+- 📦 PocketBase backend with built-in authentication
+- 🎨 Beautiful UI components from shadcn/ui
 - 🌐 Server-side rendering and client-side interactivity
 - 🔄 Form handling with React Server Actions
-- 🐳 Docker setup for development and production
-- ☁️ Ready to deploy to Fly.io
+- 🔐 Complete authentication system with email/password
+- 🐳 Production-ready Docker setup
+- ☁️ One-command deployment to Fly.io
 - 🔒 Secure cookie-based authentication
-- ✨ Modern, responsive design with gradient backgrounds
 - 🛡️ Type-safe development with TypeScript
+- ⚡ Bun for fast package management and running scripts
 
 ## Getting Started
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Node.js 18+ (for local development)
+- Bun runtime
 - Fly.io CLI (for deployment)
 
 ### Local Development
@@ -36,26 +35,24 @@ cd pocketwatcher
 2. Install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
-3. Start the development environment:
+3. Start the development servers:
+
+In one terminal, start PocketBase:
 
 ```bash
-docker-compose up --build
+./pocketbase serve
 ```
 
-4. Set up PocketBase:
+In another terminal, start the Next.js development server:
 
-   - Visit http://localhost:8090/\_/ in your browser
-   - Create your admin account when prompted
-   - Create a new collection named "users" with the following schema:
-     - Email (email) - required, unique
-     - Password (password) - required
-   - Configure authentication settings in the PocketBase Admin UI
-   - Set up proper security rules for user access
+```bash
+bun run dev
+```
 
-5. Access the applications:
+4. Access the applications:
    - Next.js: http://localhost:3000
    - PocketBase Admin: http://localhost:8090/\_/
 
@@ -75,14 +72,17 @@ docker-compose up --build
 ```
 ├── src/
 │   ├── app/                    # Next.js application
-│   │   ├── actions.ts         # Server actions for auth
-│   │   ├── page.tsx          # Login page
-│   │   └── register/         # Registration page
-│   └── components/            # Shared components
-├── pb_data/                   # PocketBase data directory
-├── docker-compose.yml         # Docker compose configuration
-├── start.sh                  # Container startup script
-└── Dockerfile                # Docker build configuration
+│   │   ├── actions/           # Server actions
+│   │   ├── api/              # API routes
+│   │   ├── auth/             # Authentication pages
+│   │   └── page.tsx          # Home page
+│   ├── components/            # React components
+│   │   ├── ui/              # shadcn/ui components
+│   │   └── auth/            # Authentication components
+│   └── lib/                  # Utility functions and configs
+├── public/                   # Static assets
+├── pb_data/                  # PocketBase data directory
+└── Dockerfile               # Production Docker configuration
 ```
 
 ## Authentication Flow
@@ -110,26 +110,65 @@ docker-compose up --build
 
 ## Deployment
 
-1. Install the Fly.io CLI and login:
+1. Install the Fly.io CLI:
 
 ```bash
 curl -L https://fly.io/install.sh | sh
 fly auth login
 ```
 
-2. Deploy your application:
+2. Deploy the application:
 
 ```bash
-fly launch
-fly deploy
+bun run launch
 ```
 
-## Environment Variables
+This will:
 
-```env
-NEXT_PUBLIC_POCKETBASE_URL=http://localhost:8090  # PocketBase URL
-NODE_ENV=development                              # Environment (development/production)
-```
+- Create your app on Fly.io
+- Build and deploy the Docker image
+- Allocate dedicated IPv4 and IPv6 addresses
+- Create a persistent volume for PocketBase data
+- Deploy the application
+
+3. After deployment:
+   - Your app will be available at `https://your-app-name.fly.dev`
+   - Access PocketBase admin at `https://your-app-name.fly.dev:8091/_/`
+   - Look for the PocketBase admin setup URL in the Fly.io logs:
+     ```bash
+     fly logs | grep pbinstal
+     ```
+   - Use this URL to complete the initial PocketBase admin setup
+
+## Configuration Files
+
+### fly.toml
+
+The `fly.toml` configuration file sets up:
+
+- App name and organization
+- Region configuration
+- Machine specifications (shared-cpu-1x, 1GB RAM)
+- Service ports for PocketBase (8090/8091) and Next.js (3000)
+- Volume mounts for persistent PocketBase data
+
+### supervisor.conf
+
+Supervisor manages both services in production:
+
+- Next.js application
+- PocketBase server
+- Process monitoring and automatic restarts
+- Log management
+
+### Dockerfile
+
+Multi-stage build process that:
+
+- Builds the Next.js application
+- Sets up PocketBase
+- Configures the production environment
+- Handles service orchestration
 
 ## Contributing
 
