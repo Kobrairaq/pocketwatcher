@@ -89,17 +89,25 @@ During the launch process, you'll be prompted to confirm some settings:
 
 You can either accept the defaults by selecting "No" when asked to tweak settings, or customize them according to your needs.
 
-3. After deployment:
+3. During deployment, you'll be prompted twice:
 
-   - Your app will be available at `https://your-app-name.fly.dev`
-   - Access PocketBase admin at `https://your-app-name.fly.dev:8091/_/`
-   - Look for the PocketBase admin setup URL in the Fly.io logs:
-     ```bash
-     fly logs | grep pbinstal
-     ```
-   - Use this URL to complete the initial PocketBase admin setup
+   - When asked "Do you want to tweak these settings before proceeding?" → Type `No`
+   - When asked "Would you like to allocate dedicated ipv4 and ipv6 addresses now?" → Type `Yes`
 
-4. You'll also be asked about allocating IPv4/IPv6 addresses - select "Yes" to ensure proper functionality.
+4. After deployment, find your PocketBase admin setup URL:
+
+```bash
+fly logs | grep pbinstal
+```
+
+5. Access the admin setup URL by replacing:
+   - Change `http://0.0.0.0:8090` to `https://your-app-name.fly.dev:8091`
+   - Keep the rest of the URL path and token
+
+Your app will be available at:
+
+- App: https://your-app-name.fly.dev
+- Admin: https://your-app-name.fly.dev:8091/_/
 
 ### Authentication Features
 
