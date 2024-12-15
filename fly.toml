@@ -1,0 +1,66 @@
+# fly.toml app configuration file generated for pocket-watcher on 2024-12-14T17:36:49-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'pocket-watcher'
+primary_region = 'sea'
+
+[build]
+
+[[mounts]]
+source = 'pb_data'
+destination = '/pb/pb_data'
+
+[env]
+NEXT_PUBLIC_POCKETBASE_URL = "https://pocket-watcher.fly.dev:8091"
+PORT = "3000"
+
+# Next.js configuration
+[http_service]
+internal_port = 3000
+force_https = true
+auto_stop_machines = "stop"
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
+
+[[http_service.ports]]
+handlers = ["http"]
+port = 80
+
+[[http_service.ports]]
+handlers = ["tls", "http"]
+port = 443
+
+[http_service.tls_options]
+alpn = ["h2", "http/1.1"]
+versions = ["TLSv1.2", "TLSv1.3"]
+
+# PocketBase configuration
+[[services]]
+protocol = "tcp"
+internal_port = 8090
+
+[[services.ports]]
+port = 8090
+handlers = ["http"]
+
+[[services.ports]]
+port = 8091
+handlers = ["tls", "http"]
+tls_options = { alpn = ["h2", "http/1.1"], versions = ["TLSv1.2", "TLSv1.3"] }
+
+[[services.tcp_checks]]
+interval = "15s"
+timeout = "2s"
+grace_period = "1s"
+
+[metrics]
+port = 9091
+path = "/metrics"
+
+[[vm]]
+memory = '1gb'
+cpu_kind = 'shared'
+cpus = 1

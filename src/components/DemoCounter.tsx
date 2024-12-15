@@ -1,6 +1,6 @@
 "use client";
 
-import { pb } from "@/lib/pocketbase";
+import pb from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
 
 interface PageView {

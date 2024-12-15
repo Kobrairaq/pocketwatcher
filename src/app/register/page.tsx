@@ -2,8 +2,9 @@
 
 import { signup, type ActionResult } from "../actions";
 import Link from "next/link";
-import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
+import { useActionState } from "react";
+import { useEffect } from "react";
 
 const initialState: ActionResult = {
   success: false,
@@ -12,18 +13,19 @@ const initialState: ActionResult = {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [state, formAction] = useFormState(
+  const [state, formAction] = useActionState(
+    // Changed from useFormState to useActionState
     async (_: ActionResult, formData: FormData) => {
       return await signup(formData);
     },
     initialState
   );
 
-  // Redirect on success
-  if (state?.success) {
-    router.push("/dashboard");
-    return null;
-  }
+  useEffect(() => {
+    if (state?.success) {
+      router.push("/dashboard");
+    }
+  }, [state?.success, router]);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">

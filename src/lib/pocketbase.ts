@@ -1,14 +1,9 @@
 import PocketBase from "pocketbase";
 
-// Use environment variables with fallbacks
-const POCKETBASE_URL =
-  process.env.NEXT_PUBLIC_POCKETBASE_URL ??
-  // When running in Docker, use the service name
-  (process.env.NODE_ENV === "production"
-    ? "http://pocketbase:8090"
-    : "http://localhost:8090");
+if (!process.env.NEXT_PUBLIC_POCKETBASE_URL) {
+  throw new Error("NEXT_PUBLIC_POCKETBASE_URL environment variable is not set");
+}
 
-// Create a single PocketBase instance to reuse connections
-const pb = new PocketBase(POCKETBASE_URL);
+const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
-export { pb };
+export default pb;
