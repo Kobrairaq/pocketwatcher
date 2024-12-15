@@ -1,7 +1,5 @@
 # PocketWatcher
 
-🚀 Production-ready Next.js template with PocketBase and shadcn/ui. Includes authentication, beautiful UI components, and one-command deployment.
-
 [![Next.js](https://img.shields.io/badge/Next.js-15%2B-black)](https://nextjs.org/)
 [![PocketBase](https://img.shields.io/badge/PocketBase-0.23-blue)](https://pocketbase.io/)
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-latest-purple)](https://ui.shadcn.com/)
