@@ -64,6 +64,38 @@ bun run dev
    - Next.js: http://localhost:3000
    - PocketBase Admin: http://localhost:8090/\_/
 
+## Deployment
+
+1. Install the Fly.io CLI:
+
+```bash
+curl -L https://fly.io/install.sh | sh
+fly auth login
+```
+
+2. Deploy the application:
+
+```bash
+bun run launch
+```
+
+This will:
+
+- Create your app on Fly.io
+- Build and deploy the Docker image
+- Allocate dedicated IPv4 and IPv6 addresses
+- Create a persistent volume for PocketBase data
+- Deploy the application
+
+3. After deployment:
+   - Your app will be available at `https://your-app-name.fly.dev`
+   - Access PocketBase admin at `https://your-app-name.fly.dev:8091/_/`
+   - Look for the PocketBase admin setup URL in the Fly.io logs:
+     ```bash
+     fly logs | grep pbinstal
+     ```
+   - Use this URL to complete the initial PocketBase admin setup
+
 ### Authentication Features
 
 - Secure login system with email/password
@@ -115,38 +147,6 @@ bun run dev
 - Type-safe authentication flow
 - CSRF protection with Next.js
 - Secure session management
-
-## Deployment
-
-1. Install the Fly.io CLI:
-
-```bash
-curl -L https://fly.io/install.sh | sh
-fly auth login
-```
-
-2. Deploy the application:
-
-```bash
-bun run launch
-```
-
-This will:
-
-- Create your app on Fly.io
-- Build and deploy the Docker image
-- Allocate dedicated IPv4 and IPv6 addresses
-- Create a persistent volume for PocketBase data
-- Deploy the application
-
-3. After deployment:
-   - Your app will be available at `https://your-app-name.fly.dev`
-   - Access PocketBase admin at `https://your-app-name.fly.dev:8091/_/`
-   - Look for the PocketBase admin setup URL in the Fly.io logs:
-     ```bash
-     fly logs | grep pbinstal
-     ```
-   - Use this URL to complete the initial PocketBase admin setup
 
 ## Configuration Files
 
