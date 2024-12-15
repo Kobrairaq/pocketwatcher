@@ -1,6 +1,16 @@
 # PocketWatcher
 
-A modern, full-stack application template built with Next.js, PocketBase, and shadcn/ui, providing a solid foundation for building web applications with authentication and beautiful UI components.
+🚀 Production-ready Next.js template with PocketBase and shadcn/ui. Includes authentication, beautiful UI components, and one-command deployment.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15%2B-black)](https://nextjs.org/)
+[![PocketBase](https://img.shields.io/badge/PocketBase-0.23-blue)](https://pocketbase.io/)
+[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-latest-purple)](https://ui.shadcn.com/)
+[![Bun](https://img.shields.io/badge/Bun-1.0%2B-black)](https://bun.sh/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+## Overview
+
+A modern full-stack template that combines the power of Next.js, the simplicity of PocketBase, and the beauty of shadcn/ui. Perfect for quickly bootstrapping production-ready web applications with authentication and a polished UI.
 
 ## Features
 
