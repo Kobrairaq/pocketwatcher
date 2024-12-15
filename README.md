@@ -79,14 +79,6 @@ fly auth login
 bun run launch
 ```
 
-During the launch process, you'll be prompted to confirm some settings:
-
-- Organization selection (defaults to personal)
-- App name (from your fly.toml)
-- Region selection
-- Machine specifications (shared-cpu-1x, 1GB RAM)
-- Optional add-ons (Postgres, Redis, Tigris)
-
 You can either accept the defaults by selecting "No" when asked to tweak settings, or customize them according to your needs.
 
 3. During deployment, you'll be prompted twice:
