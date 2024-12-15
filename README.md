@@ -79,15 +79,18 @@ fly auth login
 bun run launch
 ```
 
-This will:
+During the launch process, you'll be prompted to confirm some settings:
 
-- Create your app on Fly.io
-- Build and deploy the Docker image
-- Allocate dedicated IPv4 and IPv6 addresses
-- Create a persistent volume for PocketBase data
-- Deploy the application
+- Organization selection (defaults to personal)
+- App name (from your fly.toml)
+- Region selection
+- Machine specifications (shared-cpu-1x, 1GB RAM)
+- Optional add-ons (Postgres, Redis, Tigris)
+
+You can either accept the defaults by selecting "No" when asked to tweak settings, or customize them according to your needs.
 
 3. After deployment:
+
    - Your app will be available at `https://your-app-name.fly.dev`
    - Access PocketBase admin at `https://your-app-name.fly.dev:8091/_/`
    - Look for the PocketBase admin setup URL in the Fly.io logs:
@@ -95,6 +98,8 @@ This will:
      fly logs | grep pbinstal
      ```
    - Use this URL to complete the initial PocketBase admin setup
+
+4. You'll also be asked about allocating IPv4/IPv6 addresses - select "Yes" to ensure proper functionality.
 
 ### Authentication Features
 
