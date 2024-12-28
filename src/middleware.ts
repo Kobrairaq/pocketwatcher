@@ -3,7 +3,7 @@ import { isTokenExpired } from "pocketbase";
 
 export function middleware(request: NextRequest) {
   // Protected routes
-  const protectedPaths = ["/dashboard"];
+  const protectedPaths = ["/dashboard", "/projects"];
   const isProtectedPath = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
